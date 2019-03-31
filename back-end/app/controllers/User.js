@@ -1,6 +1,10 @@
 const sha256 = require('sha256');
 const UserDAO = require('../models/UserDAO');
 const CoursesDAO = require('../models/CourseDAO');
+
+const UserController = function () {
+};
+
 const checkAuthentication = async (req, res) => {
     try {
         let {email, password} = req.body;
@@ -31,8 +35,8 @@ const createUser = async (req, res) => {
         data = {
             name: data.name,
             email: data.email,
-            password:sha256(data.password),
-            courses:[]
+            password: sha256(data.password),
+            courses: []
         };
         let userDAO = new UserDAO();
         await userDAO.insertOne(data);
@@ -41,6 +45,11 @@ const createUser = async (req, res) => {
         res.send(e);
     }
 };
-module.exports = {
-    checkAuthentication
+
+UserController.prototype = {
+    checkAuthentication,
+    showMyCourses,
+    createUser
 };
+
+module.exports = new UserController();

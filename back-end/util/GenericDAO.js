@@ -8,13 +8,7 @@ class GenericDAO {
     async findAll(findConfig, sortConfig, limit) {
         return new Promise(async (resolve, reject) => {
             try {
-                let result;
-                let db = await Db.get();
-                if (limit) {
-                    result = await db.collection(this.col).find({}).project(findConfig).sort(sortConfig).limit(limit).toArray();
-                } else {
-                    result = await db.collection(this.col).find({}).project(findConfig).sort(sortConfig).toArray();
-                }
+                let result = await this.find({},findConfig,sortConfig,limit);
                 resolve(result);
             } catch (e) {
                 console.log(e);
@@ -36,7 +30,7 @@ class GenericDAO {
     }
 
     find(parameters, findConfig, sortConfig, limit) {
-        return new Promise(async function (resolve, reject) {
+        return new Promise(async (resolve, reject) => {
             try {
                 let result;
                 let db = await Db.get();
@@ -45,9 +39,10 @@ class GenericDAO {
                 } else {
                     result = await db.collection(this.col).find(parameters).project(findConfig).sort(sortConfig).toArray();
                 }
-                resolve(result)
+                resolve(result);
             } catch (e) {
-                reject(e)
+                console.log(e);
+                reject(e);
             }
         });
     }

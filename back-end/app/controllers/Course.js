@@ -1,6 +1,9 @@
 const CourseDAO = require('../models/CourseDAO');
 const objectId = require('mongodb').ObjectId;
 
+const CourseController = function(){
+};
+
 const createNewCourse = async (req, res) => {
     try {
         let {title, description, level, image_src, subCategory, requisiteString} = req.body;
@@ -29,7 +32,6 @@ const createNewCourse = async (req, res) => {
         res.status(400).send(e);
     }
 };
-
 const getCourse = async (req, res) => {
     try {
         let courseToFind = req.params;
@@ -40,7 +42,7 @@ const getCourse = async (req, res) => {
         res.status(400).send(e);
     }
 };
-const getCourses = async(req,res)=>{
+const getCourses = async (req, res) => {
     try {
         let courseDAO = new CourseDAO();
         let course = await courseDAO.findAll();
@@ -50,18 +52,20 @@ const getCourses = async(req,res)=>{
     }
 };
 const exclude = (req, res) => {
-    try{
+    try {
         let {_id} = req.params;
         let courseDAO = new CourseDAO();
         //let userDAO = new UserDAO();
         courseDAO.deleteCourse
-    }catch (e) {
+    } catch (e) {
 
     }
 };
-module.exports = {
+
+CourseController.prototype = {
     createNewCourse,
     getCourse,
     getCourses,
     exclude
 };
+module.exports = new CourseController;

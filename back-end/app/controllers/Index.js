@@ -1,5 +1,6 @@
 const CoursesDAO = require('../models/CourseDAO');
-
+const IndexController = function () {
+};
 const getCourses = async (req, res) => {
     try {
         let coursesDAO = new CoursesDAO();
@@ -9,7 +10,6 @@ const getCourses = async (req, res) => {
         res.status(400).send(e);
     }
 };
-
 const insertCourse = async (req, res) => {
     try {
         let coursesDAO = new CoursesDAO();
@@ -20,7 +20,8 @@ const insertCourse = async (req, res) => {
     }
 };
 
-module.exports = {
+IndexController.prototype = {
     getCourses,
     insertCourse
 };
+module.exports = new IndexController();
