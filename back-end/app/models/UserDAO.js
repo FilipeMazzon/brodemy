@@ -1,7 +1,8 @@
 const GenericDAO = require('../../util/GenericDAO');
-class CoursesDAO extends GenericDAO{
-    constructor(){
-        super("users")
-    }
-}
-module.exports = CoursesDAO;
+
+const UserDAO = function(){
+
+};
+UserDAO.prototype = new GenericDAO("user");
+
+module.exports = new UserDAO;

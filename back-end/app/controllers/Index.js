@@ -1,9 +1,8 @@
-const CoursesDAO = require('../models/CourseDAO');
+const coursesDAO = require('../models/CourseDAO');
 const IndexController = function () {
 };
 const getCourses = async (req, res) => {
     try {
-        let coursesDAO = new CoursesDAO();
         let result = await coursesDAO.findAll({});
         res.status(200).send(result);
     } catch (e) {
@@ -12,7 +11,6 @@ const getCourses = async (req, res) => {
 };
 const insertCourse = async (req, res) => {
     try {
-        let coursesDAO = new CoursesDAO();
         let response = await coursesDAO.insertOne(req.body);
         res.send(response);
     } catch (e) {

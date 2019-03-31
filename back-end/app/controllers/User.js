@@ -1,6 +1,6 @@
 const sha256 = require('sha256');
-const UserDAO = require('../models/UserDAO');
-const CoursesDAO = require('../models/CourseDAO');
+const userDAO = require('../models/UserDAO');
+const coursesDAO = require('../models/CourseDAO');
 
 const UserController = function () {
 };
@@ -12,7 +12,6 @@ const checkAuthentication = async (req, res) => {
             email,
             password: sha256(password)
         };
-        let userDAO = new UserDAO();
         let result = await userDAO.findOne(aux);
         res.send(result);
     } catch (e) {
@@ -22,7 +21,6 @@ const checkAuthentication = async (req, res) => {
 const showMyCourses = async (req, res) => {
     try {
         let {user} = req.body;
-        let coursesDAO = new CoursesDAO();
         let results = await coursesDAO.find({user});
         res.send(results);
     } catch (e) {
@@ -38,7 +36,6 @@ const createUser = async (req, res) => {
             password: sha256(data.password),
             courses: []
         };
-        let userDAO = new UserDAO();
         await userDAO.insertOne(data);
         res.send("created");
     } catch (e) {

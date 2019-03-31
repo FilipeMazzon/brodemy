@@ -1,4 +1,4 @@
-const CourseDAO = require('../models/CourseDAO');
+const courseDAO = require('../models/CourseDAO');
 const objectId = require('mongodb').ObjectId;
 
 const CourseController = function(){
@@ -35,7 +35,6 @@ const createNewCourse = async (req, res) => {
 const getCourse = async (req, res) => {
     try {
         let courseToFind = req.params;
-        let courseDAO = new CourseDAO();
         let course = await courseDAO.findOne(courseToFind);
         res.status(200).send(course);
     } catch (e) {
@@ -44,7 +43,6 @@ const getCourse = async (req, res) => {
 };
 const getCourses = async (req, res) => {
     try {
-        let courseDAO = new CourseDAO();
         let course = await courseDAO.findAll();
         res.status(200).send(course);
     } catch (e) {
